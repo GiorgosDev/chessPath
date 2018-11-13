@@ -1,2 +1,2 @@
 # chessPath
-program to calculate path t
+program to calculate path for chess figures

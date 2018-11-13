@@ -11,9 +11,17 @@ public class Position {
         this.y = y;
     }
 
-    public Position(String chessPosition) {
-        this.x = 0;
-        this.y = 0;
+    public Position(String chessPosition) throws IncorrectPositionException {
+
+        if(chessPosition.length()>2
+                || chessPosition.charAt(0) <'a'
+                || chessPosition.charAt(0) >'h'
+                || chessPosition.charAt(1) <'1'
+                || chessPosition.charAt(1) >'8')
+            throw new IncorrectPositionException();
+
+        this.x = chessPosition.charAt(0) - 'a';
+        this.y = chessPosition.charAt(1) - '1';
     }
 
     public int getX() {

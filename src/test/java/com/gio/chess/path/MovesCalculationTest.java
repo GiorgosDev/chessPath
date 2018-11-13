@@ -28,4 +28,18 @@ public class MovesCalculationTest {
         for(Position calculatedPosition : calculated)
             Assert.assertTrue(expected.contains(calculatedPosition));
     }
+
+    @Test
+    public void testKnightAngleMovePositions(){
+        Knight knight = new Knight(new Position(0,0));
+        Set<Position> expected = new HashSet<>();
+        expected.add(new Position(1, 2));
+        expected.add(new Position(2, 1));
+
+        Set<Position> calculated = knight.getMovesAvailable();
+
+        Assert.assertEquals(expected.size(), calculated.size());
+        for(Position calculatedPosition : calculated)
+            Assert.assertTrue(expected.contains(calculatedPosition));
+    }
 }

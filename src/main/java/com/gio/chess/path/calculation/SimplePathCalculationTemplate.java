@@ -39,7 +39,7 @@ public class SimplePathCalculationTemplate implements PathCalculationTemplate {
 
         //join left and right paths
         Set<Path> leftSetToJoin = filterPathBySetOfEndPositions(leftSet, intersection);
-        Set<Path> rightSetToJoin = filterPathBySetOfEndPositions(rightSet, intersection);;
+        Set<Path> rightSetToJoin = filterPathBySetOfEndPositions(rightSet, intersection);
 
         Set<Path> resultSet = new HashSet<>();
 

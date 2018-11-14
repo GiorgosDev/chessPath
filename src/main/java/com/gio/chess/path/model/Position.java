@@ -3,6 +3,7 @@ package com.gio.chess.path.model;
 import com.gio.chess.path.exceptions.IncorrectPositionException;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Position {
     private int x;
@@ -52,5 +53,13 @@ public class Position {
     @Override
     public String toString() {
         return "(" + (char)('a' + x)  + (char)('1' + y) + ")";
+    }
+
+    public static void addPositionIfInRange(Position position, Set<Position> moves) {
+        if (position.getX() >= 0
+                && position.getX() <= 7
+                && position.getY() >= 0
+                && position.getY() <= 7)
+            moves.add(position);
     }
 }

@@ -1,6 +1,5 @@
 package com.gio.chess.path.moves;
 
-import com.gio.chess.path.model.Piece;
 import com.gio.chess.path.model.Position;
 
 import java.util.HashSet;
@@ -16,9 +15,9 @@ public class KnightMovesStrategy implements PieceMovesStrategy {
         int rightShift = 2;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                Piece.addPositionIfInRange(new Position(position.getX() + leftShift * leftSign,
+                Position.addPositionIfInRange(new Position(position.getX() + leftShift * leftSign,
                         position.getY() + rightShift * rightSign), moves);
-                Piece.addPositionIfInRange(new Position(position.getX() + rightShift * rightSign,
+                Position.addPositionIfInRange(new Position(position.getX() + rightShift * rightSign,
                         position.getY() + leftShift * leftSign), moves);
                 leftSign *= -1;
             }

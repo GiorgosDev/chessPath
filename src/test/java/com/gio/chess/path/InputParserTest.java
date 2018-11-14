@@ -1,5 +1,7 @@
 package com.gio.chess.path;
 
+import com.gio.chess.path.exceptions.IncorrectPositionException;
+import com.gio.chess.path.model.Position;
 import org.junit.Assert;
 import org.junit.Test;
 

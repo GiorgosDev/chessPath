@@ -1,6 +1,8 @@
 package com.gio.chess.path;
 
-import com.gio.chess.path.pieces.Knight;
+import com.gio.chess.path.exceptions.IncorrectPositionException;
+import com.gio.chess.path.model.Position;
+import com.gio.chess.path.model.Knight;
 import org.junit.Assert;
 import org.junit.Test;
 

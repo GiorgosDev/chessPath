@@ -1,4 +1,6 @@
-package com.gio.chess.path;
+package com.gio.chess.path.model;
+
+import com.gio.chess.path.exceptions.IncorrectPositionException;
 
 import java.util.Objects;
 

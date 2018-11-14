@@ -1,6 +1,6 @@
-package com.gio.chess.path.pieces;
+package com.gio.chess.path.model;
 
-import com.gio.chess.path.Position;
+import com.gio.chess.path.model.Position;
 
 import java.util.HashSet;
 import java.util.List;

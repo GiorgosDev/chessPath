@@ -1,10 +1,7 @@
 package com.gio.chess.path.model;
 
-import com.gio.chess.path.model.Position;
-
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -82,15 +79,17 @@ public class Knight {
                 .filter(path -> intersection.contains(path.getPosition()))
                 .collect(Collectors.toSet());
 
+        Set<Path> resultSet = new HashSet<>();
+
         for(Path leftPath : leftSetToJoin){
             for(Path rightPath : rightSetToJoin){
                 if(leftPath.getPosition().equals(rightPath.getPosition())){
-                    leftPath.appendAll(rightPath);
+                    resultSet.add(leftPath.appendAll(rightPath));
                 }
             }
         }
 
-        return leftSetToJoin;
+        return resultSet;
     }
 
     public static Set<Path> expandPathsOneStep(Set<Path> paths){

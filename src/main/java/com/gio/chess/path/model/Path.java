@@ -6,37 +6,35 @@ public class Path {
     private ArrayList<Position> positions = new ArrayList<>();
 
     public Path(Position position) {
-        this.append(position);
+        this.positions.add(position);
     }
 
     public Path(Path patternPath) {
         this.positions = (ArrayList<Position>) patternPath.positions.clone();
     }
 
-    public void append(Position position){
-        positions.add(position);
-    }
 
-    public void appendAll(Path path){
+
+    public Path appendAll(Path path){
         ArrayList<Position> clone = (ArrayList<Position>)path.positions.clone();
+        Path clonedPath = new Path(this);
         Collections.reverse(clone);
         if(!clone.isEmpty()
-                && !positions.isEmpty()
-                && clone.get(0).equals(positions.get(positions.size()-1)))
-            positions.remove(positions.size()-1);
-        positions.addAll(clone);
+                && !clonedPath.positions.isEmpty()
+                && clone.get(0).equals(clonedPath.positions.get(clonedPath.positions.size()-1)))
+            clonedPath.positions.remove(clonedPath.positions.size()-1);
+        clonedPath.positions.addAll(clone);
+        return clonedPath;
     }
 
 
     public Path copyAndAppend(Position position){
         Path path = new Path(this);
-        path.append(position);
+        path.positions.add(position);
         return path;
     }
 
-    public List<Position> getPath() {
-        return positions;
-    }
+
 
     public int size(){
         return positions.size();
@@ -56,7 +54,7 @@ public class Path {
             return false;
         //checking every element
         for(int i = 0 ; i < positions.size() ; i++){
-            if(!this.getPath().get(i).equals(path1.getPath().get(i)))
+            if(!this.positions.get(i).equals(path1.positions.get(i)))
                 return false;
         }
         return true;
@@ -64,7 +62,10 @@ public class Path {
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(positions);
+        int hash = 0;
+        for(Position position : positions){
+            hash+= Objects.hash(position);
+        }
+        return hash;
     }
 }

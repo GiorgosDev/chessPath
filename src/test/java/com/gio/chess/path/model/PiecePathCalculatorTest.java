@@ -22,7 +22,6 @@ public class PiecePathCalculatorTest {
                 .copyAndAppend(new Position("b3"))
                 .copyAndAppend(new Position("c5"))
                 .copyAndAppend(new Position("e6"));
-        paths.contains(expectedPath1);
         Assert.assertTrue(paths.contains(expectedPath1));
         Path expectedPath2 = (new Path(new Position("a1")))
                 .copyAndAppend(new Position("b3"))

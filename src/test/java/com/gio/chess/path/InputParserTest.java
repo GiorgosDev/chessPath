@@ -17,6 +17,9 @@ public class InputParserTest {
 
         position = new Position("h8");
         Assert.assertEquals( new Position(7, 7), position);
+
+        position = new Position("e6");
+        Assert.assertEquals( new Position(4, 5), position);
     }
 
     @Test(expected = IncorrectPositionException.class)

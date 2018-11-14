@@ -20,6 +20,10 @@ public class Path {
     public void appendAll(Path path){
         ArrayList<Position> clone = (ArrayList<Position>)path.positions.clone();
         Collections.reverse(clone);
+        if(!clone.isEmpty()
+                && !positions.isEmpty()
+                && clone.get(0).equals(positions.get(positions.size()-1)))
+            positions.remove(positions.size()-1);
         positions.addAll(clone);
     }
 

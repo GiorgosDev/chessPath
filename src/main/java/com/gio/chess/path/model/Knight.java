@@ -30,8 +30,8 @@ public class Knight {
             for (int j = 0; j < 2; j++) {
                 addPositionIfInRange(new Position(position.getX() + leftShift * leftSign,
                         position.getY() + rightShift * rightSign), moves);
-                addPositionIfInRange(new Position(position.getY() + rightShift * rightSign,
-                        position.getX() + leftShift * leftSign), moves);
+                addPositionIfInRange(new Position(position.getX() + rightShift * rightSign,
+                        position.getY() + leftShift * leftSign), moves);
                 leftSign *= -1;
             }
             rightSign *= -1;
@@ -65,14 +65,22 @@ public class Knight {
         }
 
         //calculate intersecting paths
-        Set<Position> intersection = leftSet.stream().map(Path::getPosition).collect(Collectors.toSet());
-        Set<Position> rightPositions = rightSet.stream().map(Path::getPosition).collect(Collectors.toSet());
+        Set<Position> intersection = leftSet.stream()
+                .map(Path::getPosition)
+                .collect(Collectors.toSet());
+        Set<Position> rightPositions = rightSet.stream()
+                .map(Path::getPosition)
+                .collect(Collectors.toSet());
 
         intersection.retainAll(rightPositions);
 
         //join left and right paths
-        Set<Path> leftSetToJoin = leftSet.stream().filter(path -> intersection.contains(path.getPosition())).collect(Collectors.toSet());
-        Set<Path> rightSetToJoin = rightSet.stream().filter(path -> intersection.contains(path.getPosition())).collect(Collectors.toSet());
+        Set<Path> leftSetToJoin = leftSet.stream()
+                .filter(path -> intersection.contains(path.getPosition()))
+                .collect(Collectors.toSet());
+        Set<Path> rightSetToJoin = rightSet.stream()
+                .filter(path -> intersection.contains(path.getPosition()))
+                .collect(Collectors.toSet());
 
         for(Path leftPath : leftSetToJoin){
             for(Path rightPath : rightSetToJoin){
@@ -82,7 +90,7 @@ public class Knight {
             }
         }
 
-        return new HashSet<>();
+        return leftSetToJoin;
     }
 
     public static Set<Path> expandPathsOneStep(Set<Path> paths){

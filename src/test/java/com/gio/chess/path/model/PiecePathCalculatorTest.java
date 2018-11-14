@@ -1,9 +1,10 @@
 package com.gio.chess.path.model;
 
+import com.gio.chess.path.calculation.PathCalculationTemplate;
+import com.gio.chess.path.calculation.SimplePathCalculationTemplate;
 import com.gio.chess.path.exceptions.IncorrectPositionException;
-import com.gio.chess.path.model.Knight;
-import com.gio.chess.path.model.Path;
-import com.gio.chess.path.model.Position;
+import com.gio.chess.path.moves.KnightMovesStrategy;
+import com.gio.chess.path.moves.PieceMovesStrategy;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,9 +14,9 @@ public class PiecePathCalculatorTest {
 
     @Test
     public void pathCalculationTest() throws IncorrectPositionException {
-        Knight knight= new Knight(new Position("a1"));
-        Position end = new Position("e6");
-        Set<Path> paths = knight.getPaths(3, end);
+        PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
+        PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
+        Set<Path> paths = pathCalculationTemplate.getPaths(3, new Position("a1"), new Position("e6"));
         Assert.assertEquals(3, paths.size());
         Path expectedPath1 = (new Path(new Position("a1")))
                 .copyAndAppend(new Position("b3"))
@@ -37,9 +38,9 @@ public class PiecePathCalculatorTest {
 
     @Test
     public void pathCalculationNoPathTest() throws IncorrectPositionException {
-        Knight knight= new Knight(new Position("a1"));
-        Position end = new Position("c5");
-        Set<Path> paths = knight.getPaths(3, end);
+        PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
+        PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
+        Set<Path> paths = pathCalculationTemplate.getPaths(3, new Position("a1"), new Position("c5"));
         Assert.assertEquals(0, paths.size());
 
     }

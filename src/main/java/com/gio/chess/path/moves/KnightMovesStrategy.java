@@ -1,13 +1,12 @@
-package com.gio.chess.path.model;
+package com.gio.chess.path.moves;
+
+import com.gio.chess.path.model.Piece;
+import com.gio.chess.path.model.Position;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Knight extends Piece{
-
-    public Knight(Position position) {
-        super(position);
-    }
+public class KnightMovesStrategy implements PieceMovesStrategy {
 
     public Set<Position> getMovesAvailable(Position position) {
         Set<Position> moves = new HashSet<>();
@@ -27,6 +26,5 @@ public class Knight extends Piece{
         }
         return moves;
     }
-
 
 }

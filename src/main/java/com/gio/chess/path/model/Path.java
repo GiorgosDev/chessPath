@@ -1,26 +1,45 @@
 package com.gio.chess.path.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Path {
-    List<Position> path = new ArrayList<>();
+    private ArrayList<Position> positions = new ArrayList<>();
 
-    public void append(Position position){
-        path.add(position);
+    public Path(Position position) {
+        this.append(position);
     }
 
-    public List<Position> getPath() {
+    public Path(Path patternPath) {
+        this.positions = (ArrayList<Position>) patternPath.positions.clone();
+    }
+
+    public void append(Position position){
+        positions.add(position);
+    }
+
+    public void appendAll(Path path){
+        ArrayList<Position> clone = (ArrayList<Position>)path.positions.clone();
+        Collections.reverse(clone);
+        positions.addAll(clone);
+    }
+
+
+    public Path copyAndAppend(Position position){
+        Path path = new Path(this);
+        path.append(position);
         return path;
     }
 
+    public List<Position> getPath() {
+        return positions;
+    }
+
     public int size(){
-        return path.size();
+        return positions.size();
     }
 
     public Position getPosition() {
-        return path.size()==0 ? null : path.get(path.size()-1);
+        return positions.isEmpty() ? null : positions.get(positions.size()-1);
     }
 
     @Override
@@ -32,7 +51,7 @@ public class Path {
         if(this.size() != path1.size())
             return false;
         //checking every element
-        for(int i = 0 ; i < path.size() ; i++){
+        for(int i = 0 ; i < positions.size() ; i++){
             if(!this.getPath().get(i).equals(path1.getPath().get(i)))
                 return false;
         }
@@ -42,6 +61,6 @@ public class Path {
     @Override
     public int hashCode() {
 
-        return Objects.hash(path);
+        return Objects.hash(positions);
     }
 }

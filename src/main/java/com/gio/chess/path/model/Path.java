@@ -1,6 +1,9 @@
 package com.gio.chess.path.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Path {
     private ArrayList<Position> positions = new ArrayList<>();
@@ -67,5 +70,10 @@ public class Path {
             hash+= Objects.hash(position);
         }
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Path{" + positions.stream().map(Position::toString).collect(Collectors.joining(", ")) +'}';
     }
 }

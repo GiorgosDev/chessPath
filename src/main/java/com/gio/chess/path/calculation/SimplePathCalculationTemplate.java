@@ -35,23 +35,11 @@ public class SimplePathCalculationTemplate implements PathCalculationTemplate {
             leftSet = expandPathsOneStep(leftSet);
         }
 
-        //calculate intersecting paths
-        Set<Position> intersection = leftSet.stream()
-                .map(Path::getPosition)
-                .collect(Collectors.toSet());
-        Set<Position> rightPositions = rightSet.stream()
-                .map(Path::getPosition)
-                .collect(Collectors.toSet());
-
-        intersection.retainAll(rightPositions);
+        Set<Position> intersection = calculateIntersection(leftSet, rightSet);
 
         //join left and right paths
-        Set<Path> leftSetToJoin = leftSet.stream()
-                .filter(path -> intersection.contains(path.getPosition()))
-                .collect(Collectors.toSet());
-        Set<Path> rightSetToJoin = rightSet.stream()
-                .filter(path -> intersection.contains(path.getPosition()))
-                .collect(Collectors.toSet());
+        Set<Path> leftSetToJoin = filterPathBySetOfEndPositions(leftSet, intersection);
+        Set<Path> rightSetToJoin = filterPathBySetOfEndPositions(rightSet, intersection);;
 
         Set<Path> resultSet = new HashSet<>();
 
@@ -66,13 +54,33 @@ public class SimplePathCalculationTemplate implements PathCalculationTemplate {
         return resultSet;
     }
 
+    private Set<Position> calculateIntersection(Set<Path> leftSet, Set<Path> rightSet){
+        //calculate intersecting paths
+        Set<Position> intersection = leftSet.stream()
+                .map(Path::getPosition)
+                .collect(Collectors.toSet());
+        Set<Position> rightPositions = rightSet.stream()
+                .map(Path::getPosition)
+                .collect(Collectors.toSet());
+
+        intersection.retainAll(rightPositions);
+
+        return intersection;
+
+    }
+
+    private Set<Path> filterPathBySetOfEndPositions(Set<Path> paths,  Set<Position> intersection){
+        return paths.stream()
+                .filter(path -> intersection.contains(path.getPosition()))
+                .collect(Collectors.toSet());
+    }
 
 
-    public Set<Path> expandPathsOneStep(Set<Path> paths){
+    private Set<Path> expandPathsOneStep(Set<Path> paths){
         return paths.stream().map(this::pathOneMoreStep).flatMap(Collection::stream).collect(Collectors.toSet());
     }
 
-    public Set<Path> pathOneMoreStep(Path path) {
+    private Set<Path> pathOneMoreStep(Path path) {
         Position lastPosition = path.getPosition();
         return pieceMovesStrategy.getMovesAvailable(lastPosition).stream().map(path::copyAndAppend).collect(Collectors.toSet());
     }

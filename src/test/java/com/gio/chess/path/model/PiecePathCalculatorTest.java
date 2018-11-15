@@ -36,6 +36,44 @@ public class PiecePathCalculatorTest {
     }
 
     @Test
+    public void pathCalculationOtherPathTest() throws IncorrectPositionException {
+        PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
+        PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
+        Set<Path> paths = pathCalculationTemplate.getPaths(3, new Position("b6"), new Position("f5"));
+//        Assert.assertEquals(3, paths.size());
+        Path expectedPath1 = (new Path(new Position("b6")))
+                .copyAndAppend(new Position("c8"))
+                .copyAndAppend(new Position("e7"))
+                .copyAndAppend(new Position("f5"));
+        Assert.assertTrue(paths.contains(expectedPath1));
+        Path expectedPath2 = (new Path(new Position("b6")))
+                .copyAndAppend(new Position("c8"))
+                .copyAndAppend(new Position("d6"))
+                .copyAndAppend(new Position("f5"));
+        Assert.assertTrue(paths.contains(expectedPath2));
+        Path expectedPath3 = (new Path(new Position("b6")))
+                .copyAndAppend(new Position("d5"))
+                .copyAndAppend(new Position("e3"))
+                .copyAndAppend(new Position("f5"));
+        Assert.assertTrue(paths.contains(expectedPath3));
+        Path expectedPath4 = (new Path(new Position("b6")))
+                .copyAndAppend(new Position("c4"))
+                .copyAndAppend(new Position("e3"))
+                .copyAndAppend(new Position("f5"));
+        Assert.assertTrue(paths.contains(expectedPath4));
+        Path expectedPath5 = (new Path(new Position("b6")))
+                .copyAndAppend(new Position("d5"))
+                .copyAndAppend(new Position("e7"))
+                .copyAndAppend(new Position("f5"));
+        Assert.assertTrue(paths.contains(expectedPath5));
+        Path expectedPath6 = (new Path(new Position("b6")))
+                .copyAndAppend(new Position("c4"))
+                .copyAndAppend(new Position("d6"))
+                .copyAndAppend(new Position("f5"));
+        Assert.assertTrue(paths.contains(expectedPath6));
+    }
+
+    @Test
     public void pathCalculationNoPathTest() throws IncorrectPositionException {
         PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
         PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
@@ -44,4 +82,5 @@ public class PiecePathCalculatorTest {
 
     }
 
+    //test one step
 }

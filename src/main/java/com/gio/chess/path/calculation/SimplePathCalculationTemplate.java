@@ -56,12 +56,16 @@ public class SimplePathCalculationTemplate implements PathCalculationTemplate {
 
     private Set<Position> calculateIntersection(Set<Path> leftSet, Set<Path> rightSet){
         //calculate intersecting paths
-        Set<Position> intersection = leftSet.stream()
-                .map(Path::getPosition)
-                .collect(Collectors.toSet());
-        Set<Position> rightPositions = rightSet.stream()
-                .map(Path::getPosition)
-                .collect(Collectors.toSet());
+        Set<Position> intersection = new HashSet<>();
+        for (Path path : leftSet) {
+            Position position = path.getPosition();
+            intersection.add(position);
+        }
+        Set<Position> rightPositions = new HashSet<>();
+        for (Path path : rightSet) {
+            Position position = path.getPosition();
+            rightPositions.add(position);
+        }
 
         intersection.retainAll(rightPositions);
 
@@ -70,19 +74,35 @@ public class SimplePathCalculationTemplate implements PathCalculationTemplate {
     }
 
     private Set<Path> filterPathBySetOfEndPositions(Set<Path> paths,  Set<Position> intersection){
-        return paths.stream()
-                .filter(path -> intersection.contains(path.getPosition()))
-                .collect(Collectors.toSet());
+        Set<Path> set = new HashSet<>();
+        for (Path path : paths) {
+            if (intersection.contains(path.getPosition())) {
+                set.add(path);
+            }
+        }
+        return set;
     }
 
 
     private Set<Path> expandPathsOneStep(Set<Path> paths){
-        return paths.stream().map(this::pathOneMoreStep).flatMap(Collection::stream).collect(Collectors.toSet());
+        Set<Path> set = new HashSet<>();
+        for (Path path : paths) {
+            Set<Path> pathSet = pathOneMoreStep(path);
+            for (Path path1 : pathSet) {
+                set.add(path1);
+            }
+        }
+        return set;
     }
 
     private Set<Path> pathOneMoreStep(Path path) {
         Position lastPosition = path.getPosition();
-        return pieceMovesStrategy.getMovesAvailable(lastPosition).stream().map(path::copyAndAppend).collect(Collectors.toSet());
+        Set<Path> set = new HashSet<>();
+        for (Position position : pieceMovesStrategy.getMovesAvailable(lastPosition)) {
+            Path copyAndAppend = path.copyAndAppend(position);
+            set.add(copyAndAppend);
+        }
+        return set;
     }
 
 }

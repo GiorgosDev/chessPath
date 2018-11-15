@@ -47,7 +47,11 @@ public class Application {
             if(paths.isEmpty()){
                 System.out.println("No Paths found");
             } else {
-                System.out.println("Paths Calculated:");
+                System.out.println("Shortest Path:");
+                System.out.println(paths.stream()
+                        .sorted((e2, e1) -> e1.size() > e2.size() ? -1 : 1)
+                        .findFirst().get().toString());
+                System.out.println("\n\nAll Paths Calculated:");
                 paths.forEach(System.out::println);
             }
 

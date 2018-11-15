@@ -1,6 +1,7 @@
-package com.gio.chess.path.model;
+package com.gio.chess.path.moves;
 
 import com.gio.chess.path.exceptions.IncorrectPositionException;
+import com.gio.chess.path.model.Position;
 import com.gio.chess.path.moves.KnightMovesStrategy;
 import com.gio.chess.path.moves.PieceMovesStrategy;
 import org.junit.Assert;
@@ -9,7 +10,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MovesCalculationTest {
+public class KnightMovesCalculationTest {
 
     @Test
     public void testKnightMovePositions(){

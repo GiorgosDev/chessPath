@@ -4,10 +4,8 @@ import com.gio.chess.path.model.Path;
 import com.gio.chess.path.model.Position;
 import com.gio.chess.path.moves.PieceMovesStrategy;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SimplePathCalculationTemplate implements PathCalculationTemplate {
 

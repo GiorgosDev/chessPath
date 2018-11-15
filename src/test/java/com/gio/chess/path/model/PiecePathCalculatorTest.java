@@ -13,7 +13,7 @@ import java.util.Set;
 public class PiecePathCalculatorTest {
 
     @Test
-    public void pathCalculationTest() throws IncorrectPositionException {
+    public void pathCalculation3StepsTest() throws IncorrectPositionException {
         PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
         PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
         Set<Path> paths = pathCalculationTemplate.getPaths(3, new Position("a1"), new Position("e6"));
@@ -36,11 +36,11 @@ public class PiecePathCalculatorTest {
     }
 
     @Test
-    public void pathCalculationOtherPathTest() throws IncorrectPositionException {
+    public void pathCalculation3StepsOtherPathTest() throws IncorrectPositionException {
         PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
         PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
         Set<Path> paths = pathCalculationTemplate.getPaths(3, new Position("b6"), new Position("f5"));
-//        Assert.assertEquals(3, paths.size());
+        Assert.assertEquals(6, paths.size());
         Path expectedPath1 = (new Path(new Position("b6")))
                 .copyAndAppend(new Position("c8"))
                 .copyAndAppend(new Position("e7"))
@@ -74,7 +74,7 @@ public class PiecePathCalculatorTest {
     }
 
     @Test
-    public void pathCalculationNoPathTest() throws IncorrectPositionException {
+    public void pathCalculation3StepsNoPathTest() throws IncorrectPositionException {
         PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
         PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
         Set<Path> paths = pathCalculationTemplate.getPaths(3, new Position("a1"), new Position("c5"));
@@ -82,5 +82,12 @@ public class PiecePathCalculatorTest {
 
     }
 
-    //test one step
+    @Test
+    public void pathCalculationOneStepPathTest() throws IncorrectPositionException {
+        PieceMovesStrategy pieceMovesStrategy = new KnightMovesStrategy();
+        PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
+        Set<Path> paths = pathCalculationTemplate.getPaths(1, new Position("b6"), new Position("c5"));
+        Assert.assertEquals(0, paths.size());
+    }
+
 }

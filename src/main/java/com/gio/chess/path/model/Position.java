@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Position {
 
-    public static int BOARD_SIZE =8;
+    public static final int BOARD_SIZE =8;
 
     private int x;
     private int y;

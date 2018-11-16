@@ -42,19 +42,17 @@ public class Application {
                 System.out.println("Incorrect piece type");
                 return;
             }
-            PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
-            Set<Path> paths = pathCalculationTemplate.getPaths(steps, new Position(start), new Position(end));
-            if(paths.isEmpty()){
-                System.out.println("No Paths found");
-            } else {
-                System.out.println("Shortest Path:");
-                System.out.println(paths.stream()
-                        .sorted((e2, e1) -> e1.size() > e2.size() ? -1 : 1)
-                        .findFirst().get().toString());
-                System.out.println("\n\nAll Paths Calculated:");
-                paths.forEach(System.out::println);
-            }
 
+            System.out.println("Please enter 1 to get paths with exact " + steps
+                    + " steps, any char to get min path with max "
+                    + steps + " steps");
+
+            int calcChoice = Integer.parseInt(scanner.nextLine());
+            if(calcChoice == 1){
+                printExactSteps(steps, pieceMovesStrategy, start, end);
+            } else {
+                printMinSteps(steps, pieceMovesStrategy, start, end);
+            }
 
 
         } catch (IncorrectPositionException e){
@@ -63,5 +61,35 @@ public class Application {
         catch(Exception e){
             System.out.println("Unexpected error occurred");
         }
+    }
+
+    private static void printExactSteps(int steps, PieceMovesStrategy pieceMovesStrategy, String start, String end) throws IncorrectPositionException {
+        PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
+        Set<Path> paths = pathCalculationTemplate.getPaths(steps, new Position(start), new Position(end));
+        if(paths.isEmpty()){
+            System.out.println("No Paths found");
+        } else {
+            System.out.println("Shortest Path:");
+            System.out.println(paths.stream()
+                    .sorted((e2, e1) -> e1.size() > e2.size() ? -1 : 1)
+                    .findFirst().get().toString());
+            System.out.println("\n\nAll Paths Calculated:");
+            paths.forEach(System.out::println);
+        }
+    }
+
+    private static void printMinSteps(int stepLimit, PieceMovesStrategy pieceMovesStrategy, String start, String end) throws IncorrectPositionException {
+        for(int steps = 1 ; steps <= stepLimit; steps++){
+            PathCalculationTemplate pathCalculationTemplate = new SimplePathCalculationTemplate(pieceMovesStrategy);
+            Set<Path> paths = pathCalculationTemplate.getPaths(steps, new Position(start), new Position(end));
+            if(!paths.isEmpty()){
+                System.out.println("Shortest Path:");
+                System.out.println(paths.stream()
+                        .sorted((e2, e1) -> e1.size() > e2.size() ? -1 : 1)
+                        .findFirst().get().toString());
+                return;
+            }
+        }
+        System.out.println("No Paths found");
     }
 }

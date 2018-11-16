@@ -6,6 +6,9 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Position {
+
+    public static int BOARD_SIZE =8;
+
     private int x;
     private int y;
 
@@ -57,9 +60,9 @@ public class Position {
 
     public static void addPositionIfInRange(Position position, Set<Position> moves) {
         if (position.getX() >= 0
-                && position.getX() <= 7
+                && position.getX() <= BOARD_SIZE -1
                 && position.getY() >= 0
-                && position.getY() <= 7)
+                && position.getY() <= BOARD_SIZE -1)
             moves.add(position);
     }
 }
